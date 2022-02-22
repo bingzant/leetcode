@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool isNumber(string s) {
+        int current = 0;
+        while(s[current]==' ') ++current;
+        bool result = isInterger(s, current);
+        if(s[current]=='e' || s[current]=='E'){
+            ++current;
+            int start = current;
+            bool hasSign = 0;
+            if(s[current]=='+' || s[current]=='-'){
+                ++current;
+                hasSign =1;
+            }
+            while(s[current]>='0' && s[current]<='9') ++current;
+            result = result && (current - start > hasSign);
+        }
+        while(s[current]==' ') ++current;
+        if(s[current]=='\0') return result;
+        else return false;
+    }
+
+private:
+    bool isInterger(const string& s, int &current){
+        if(s[current]=='+' || s[current]=='-') ++current;
+        return isUnInterger(s, current);;
+    }
+
+    bool isUnInterger(const string& s, int &current){
+        int start = current;
+        bool hasPoint = 0;
+        while(s[current]>='0' && s[current]<='9') ++current;
+        if(s[current]=='.'){
+            ++current;
+            hasPoint = 1;
+        }
+        while(s[current]>='0' && s[current]<='9') ++current;
+        return current - start > hasPoint;
+    }
+};
