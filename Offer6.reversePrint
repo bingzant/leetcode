@@ -1,0 +1,29 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        ListNode* p = head;
+        int count=0;
+        while(p){
+            // cout<<p->val<<endl;
+            count++;
+            p = p->next;
+        }
+        vector<int> result(count);
+        p = head;
+        while(p){
+            // cout<<p->val<<endl;
+            result[count-1] = p->val;
+            count--;
+            p = p->next;
+        }
+        return result;
+    }
+};
