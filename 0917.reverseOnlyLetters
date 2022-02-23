@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string reverseOnlyLetters(string s) {
+        int left=0, right=s.size()-1;
+        while(left<right){
+            while(left<right && !isAlphabet(s[left])){
+                // cout<<s[left];
+                ++left;
+            }
+            while(left<right && !isAlphabet(s[right])){
+                // cout<<s[right];
+                --right;
+            }
+            while(left<right && isAlphabet(s[left]) && isAlphabet(s[right])){
+                char tmp = s[left];
+                s[left] = s[right];
+                s[right] = tmp;
+                ++left;
+                --right;
+            }
+        }
+        return s;
+    }
+
+private:
+    bool isAlphabet(char ch){
+        if((65<=ch && ch<=90) || (97<=ch && ch<=122)) return true;
+        return false;
+    }
+};
