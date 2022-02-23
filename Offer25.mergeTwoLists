@@ -6,26 +6,45 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+// class Solution {
+// public:
+//     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+//         ListNode *pL1=l1, *pL2=l2, *pHead=nullptr, *pCurrent=nullptr;
+        
+//         while(pL1 && pL2){
+//             ListNode *&pNext = (pL1->val <= pL2->val) ? pL1 : pL2;
+//             if(!pHead){
+//                 pHead = pNext;
+//                 pCurrent = pHead;
+//             }
+//             else{
+//                 pCurrent->next = pNext;
+//                 pCurrent = pCurrent->next;
+//             }
+//             pNext = pNext->next;
+//         }
+//         if(!pCurrent && (pL1||pL2)) return pL1 ? pL1 :pL2; 
+//         else if(pCurrent && (pL1||pL2)) pCurrent->next = pL1 ? pL1 :pL2;
+
+//         return pHead;
+//     }
+// };
+
+// Recursion
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode *pL1=l1, *pL2=l2, *pHead=nullptr, *pCurrent=nullptr;
+        if(!l1 || !l2) return l1 ? l1 :l2;
         
-        while(pL1 && pL2){
-            ListNode *&pNext = (pL1->val <= pL2->val) ? pL1 : pL2;
-            if(!pHead){
-                pHead = pNext;
-                pCurrent = pHead;
-            }
-            else{
-                pCurrent->next = pNext;
-                pCurrent = pCurrent->next;
-            }
-            pNext = pNext->next;
+        ListNode *pHead;
+        if (l1->val <= l2->val){
+            pHead = l1;
+            l1->next = mergeTwoLists(l1->next, l2);
+        } 
+        else{
+            pHead = l2;
+            l2->next = mergeTwoLists(l1, l2->next);
         }
-        if(!pCurrent && (pL1||pL2)) return pL1 ? pL1 :pL2; 
-        else if(pCurrent && (pL1||pL2)) pCurrent->next = pL1 ? pL1 :pL2;
-
         return pHead;
     }
 };
