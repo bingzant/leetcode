@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string complexNumberMultiply(string num1, string num2) {
+        int real1, imaginary1, real2, imaginary2;
+        parse(num1, real1, imaginary1);
+        // cout<<real1<<'a'<<imaginary1<<endl;
+        parse(num2, real2, imaginary2);
+        // cout<<real2<<'a'<<imaginary2<<endl;
+        int real = real1*real2-imaginary1*imaginary2;
+        int imaginary = real1*imaginary2+real2*imaginary1;
+        return to_string(real)+'+'+to_string(imaginary)+'i';
+    }
+private:
+    void parse(string num, int &real, int& imaginary){
+        int position=0, start;
+        bool realNeg=0, imagNeg=0;
+        if(num[position]=='-'){
+            ++position;
+            realNeg = 1;
+        }
+        start = position;
+        while('0'<=num[position] && num[position]<='9') ++position;
+        real = stoi(num.substr(start,position));
+        real = realNeg ? -real : real;
+        ++position;
+        if(num[position]=='-'){
+            ++position;
+            imagNeg = 1;
+        }
+        start = position;
+        while('0'<=num[position] && num[position]<='9') ++position;
+        imaginary = stoi(num.substr(start,position));
+        imaginary = imagNeg?-imaginary:imaginary;
+    }
+};
