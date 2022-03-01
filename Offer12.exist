@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if(board.empty() || board[0].empty() || word.empty()){
+            return false;
+        }
+        int m = board.size();
+        int n = board[0].size();
+        vector<vector<bool>> flag(m);
+        for(int i=0; i<m; ++i){
+            flag[i].resize(n, false);
+        }
+        int position=0;
+        for(int i=0; i<m; ++i){
+            for(int j=0; j<n; ++j){
+                // cout <<i <<j <<endl;
+                if(do_exist(board, word, flag, position, m, n, i, j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+private:
+    bool do_exist(const vector<vector<char>>& board, string& word, vector<vector<bool>>& flag, int position,int num_row, int num_col, int row, int col){
+        if(word[position]=='\0'){
+            return true;
+        }
+        // cout << row << col <<endl;
+        if(row>=0 && col>=0 && row<num_row && col<num_col && word[position]==board[row][col] && flag[row][col] == false){
+            flag[row][col] = true;
+            // bool found=false;
+            bool found = do_exist(board, word, flag, position+1, num_row, num_col, row-1, col) ||
+            do_exist(board, word, flag, position+1, num_row, num_col, row+1, col) ||
+            do_exist(board, word, flag, position+1, num_row, num_col, row, col-1) ||
+            do_exist(board, word, flag, position+1, num_row, num_col, row, col+1);
+            if(found==false){
+                flag[row][col] = false;
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
+    }
+};
