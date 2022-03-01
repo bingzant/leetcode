@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numWays(int n) {
+        if(n==0 || n==1){
+            return 1;
+        }
+        else if(n>=2){
+            int MOD = 1e9+7;
+            int fn;
+            int fn_1 = 1;
+            int fn_2 = 1;
+            for(int i=2; i<=n; i++){
+                fn = (fn_1+fn_2)%MOD;
+                fn_2 = fn_1;
+                fn_1 = fn;
+            }
+            return fn;
+        }
+        else{
+            return -1;
+        }
+    }
+};
