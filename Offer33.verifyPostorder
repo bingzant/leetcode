@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool verifyPostorder(vector<int>& postorder) {
+        if(postorder.size()==0) return true;
+        return isInOrder(postorder, 0, postorder.size()-1);
+    }
+
+    bool isInOrder(const vector<int>& postorder, int start, int end){
+        if(start>=end) return true;
+        int root = postorder[end];
+        int current=start;
+        while(postorder[current]<root) ++current;
+        int rightStart=current;
+        while(postorder[current]>root) ++current;
+        if(current!=end) return false;
+        return isInOrder(postorder, start, rightStart-1) && isInOrder(postorder, rightStart, end-1);
+    }
+};
