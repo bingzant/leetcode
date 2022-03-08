@@ -1,0 +1,57 @@
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    MedianFinder() {
+
+    }
+    
+    void addNum(int num) {
+        if(countMax==0){
+            maxTop.push(num);
+            ++countMax;
+        }
+        // else if(countMin==0){
+        //     minTop.push(num);
+        //     ++countMin;
+        // }
+        else if(countMax<=countMin){
+            if(minTop.top()<num){
+                maxTop.push(minTop.top());
+                minTop.pop();
+                minTop.push(num);
+            }
+            else maxTop.push(num);
+            ++countMax;
+        }
+        else{
+            if(maxTop.top()>num){
+                minTop.push(maxTop.top());
+                maxTop.pop();
+                maxTop.push(num);
+            }
+            else minTop.push(num);
+            ++countMin;
+        }
+        // if(!maxTop.empty()&&!minTop.empty()){
+        // cout<<"max:"<<maxTop.top()<<endl;
+        // cout<<"min:"<<minTop.top()<<endl<<endl;
+        // }
+    }
+    
+    double findMedian() {
+        if(countMax==countMin) return (maxTop.top()+minTop.top())/2.0;
+        else return maxTop.top();
+    }
+
+private:
+    priority_queue<int> maxTop;
+    priority_queue<int, vector<int>, greater<int>> minTop;
+    int countMax=0, countMin=0;
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
