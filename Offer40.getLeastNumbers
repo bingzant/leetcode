@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        if(k==0 | arr.size()==0) return {};
+        multiset<int, greater<int>> mst;
+        for(int& num : arr){
+            if(mst.size()<k) mst.insert(num);
+            else if(num<*mst.begin()){
+                mst.erase(mst.begin());
+                mst.insert(num);
+            }
+        }
+        vector<int> result(k);
+        for(int i=0;i<k;++i){
+            result[i]=*mst.begin();
+            mst.erase(mst.begin());
+        }
+        return result;
+    }
+};
