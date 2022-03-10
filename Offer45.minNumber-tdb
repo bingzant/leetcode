@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string minNumber(vector<int>& nums) {
+        vector<string> strs;
+        for(int &num:nums) strs.push_back(to_string(num));
+        quickSort(strs, 0, strs.size()-1);
+        string result;
+        for(string s:strs) result.append(s);
+        return result;
+    }
+private:
+    void quickSort(vector<string>& strs, int left, int right){
+        int l=left, r=right;
+        while(l<r){
+            while(l<r && strs[l]+str[r]<=str[l]+str[r]) --r;
+            swap(strs[l], strs[r]);
+        }
+        quickSort(strs, left, right);
+    }
+};
