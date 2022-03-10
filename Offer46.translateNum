@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int translateNum(int num) {
+        recursion(num);
+        return count;
+    }
+private:
+    int count=0;
+    void recursion(int num){
+        if(num/10==0){
+            ++count;
+            return;
+        }
+        recursion(num/10);
+        if(num%100>9 && num%100<26) recursion(num/100);
+    }
+};
