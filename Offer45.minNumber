@@ -10,11 +10,15 @@ public:
     }
 private:
     void quickSort(vector<string>& strs, int left, int right){
+        if(left>=right) return;
         int l=left, r=right;
         while(l<r){
-            while(l<r && strs[l]+str[r]<=str[l]+str[r]) --r;
+            while(l<r && strs[r]+strs[left]>=strs[left]+strs[r]) --r;
+            while(l<r && strs[l]+strs[left]<=strs[left]+strs[l]) ++l;
             swap(strs[l], strs[r]);
         }
-        quickSort(strs, left, right);
+        swap(strs[left],strs[r]);
+        quickSort(strs, left, l-1);
+        quickSort(strs, l+1, right);
     }
 };
