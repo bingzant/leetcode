@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char, int> mp;
+        int max_length=0, cur_length=0;
+        for(int pos=0; pos<s.size();++pos){
+            if(mp.find(s[pos])==mp.end()){
+                mp.insert(pair<char,int>(s[pos], pos));
+                cur_length += 1;
+            }
+            else{
+                int distance = pos - mp[s[pos]];
+                mp[s[pos]]=pos;
+                if(distance<=cur_length) cur_length=distance;
+                else cur_length += 1;
+            }
+            if(cur_length>max_length) max_length=cur_length;
+        }
+        return max_length;
+    }
+};
