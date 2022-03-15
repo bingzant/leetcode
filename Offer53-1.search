@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int start = binarySearch(nums, target, true);
+        int end = binarySearch(nums, target, false);
+        return end-start;
+    }
+private:
+    int binarySearch(const vector<int>& nums, int target, bool findStart){
+        int left=0, right=nums.size()-1, mid, ans=nums.size();
+        while(left<=right){
+            mid=(left+right)/2;
+            if((findStart&&nums[mid]>=target) || nums[mid]>target){
+                right = mid-1;
+                ans=mid;
+            }
+            else{
+                left = mid+1;
+            }
+        }
+        return ans;
+    }
+};
