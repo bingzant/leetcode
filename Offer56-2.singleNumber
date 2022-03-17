@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        vector<int> bitSum(32,0);
+        for(int &num:nums){
+            for(int i=0; i<bitSum.size(); ++i){
+                bitSum[i] += (num >> i) & 1;
+            }
+        }
+        int result=0;
+        for(int i=0; i<bitSum.size(); ++i){
+            bitSum[i] %=3;
+            result |= bitSum[i]<<i;
+        }
+        return result;
+    }
+};
