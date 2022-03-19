@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        s = ' ' + s;
+        int fast = s.size()-1;
+        int slow = s.size()-1;
+        string ans;
+        while(fast>=0){
+            if(s[slow]!=' ' && s[fast]==' '){
+                ans += s.substr(fast+1, slow-fast);
+                ans += ' ';
+                slow = fast;
+            }
+            if(s[slow]==' ') --slow;
+            --fast;
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
