@@ -1,0 +1,40 @@
+class MaxQueue {
+public:
+    MaxQueue() {
+
+    }
+    
+    int max_value() {
+        if(qValue.empty()) return -1;
+        return qMax.front();
+    }
+    
+    void push_back(int value) {
+        qValue.push(value);
+        int count=0;
+        while(!qMax.empty() && value>=qMax.back()){
+            qMax.pop_back();
+            ++count;
+        }
+        for(int i=0; i<count+1; ++i) qMax.push_back(value);
+    }
+    
+    int pop_front() {
+        if(qValue.empty()) return -1;
+        int ans = qValue.front();
+        qValue.pop();
+        qMax.pop_front();
+        return ans;
+    }
+private:
+    queue<int> qValue;
+    deque<int> qMax;
+};
+
+/**
+ * Your MaxQueue object will be instantiated and called as such:
+ * MaxQueue* obj = new MaxQueue();
+ * int param_1 = obj->max_value();
+ * obj->push_back(value);
+ * int param_3 = obj->pop_front();
+ */
