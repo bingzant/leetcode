@@ -1,0 +1,11 @@
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        vector<int> index(256,0);
+        for(char &ch:s) ++index[ch];
+        for(char &ch:s){
+            if(index[ch]==1) return ch;
+        }
+        return ' ';
+    }
+};
