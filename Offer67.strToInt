@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int strToInt(string str) {
+        int n = str.size();
+        if(n<1) return 0;
+        int i=0;
+        bool isPostive = true;
+        while(str[i]==' ') ++i;
+        if(str[i]=='-'){
+            isPostive = false;
+            ++i;
+        }
+        else if(str[i]=='+') ++i;
+        long num = 0;
+        while('0'<=str[i] && str[i]<='9'){
+            num = num*10 + str[i]-'0';
+            ++i;
+            if(num>INT_MAX || num<INT_MIN) return isPostive ? INT_MAX : INT_MIN;
+        }
+        if(!isPostive) num = -num;
+        return num;
+    }
+};
