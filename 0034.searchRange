@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = serach(nums, target, true);
+        int right = serach(nums, target, false);
+        if(right>=0 && right<nums.size() && left>=0 && left<nums.size() && left<=right) return {left, right};
+        return {-1,-1};
+    }
+private:
+    int serach(const vector<int>& nums, int target, bool former){
+        int left=0, right=nums.size()-1;
+        int ans =-1;
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(nums[mid]<target || ((!former) && nums[mid]==target)){
+                left=mid+1;
+                if(!former) ans=mid;
+            }
+            else if(nums[mid]>target || (former && nums[mid]==target)){
+                right=mid-1;
+                if(former) ans=mid;
+            }
+        }
+        return ans;
+    }
+};
