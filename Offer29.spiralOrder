@@ -1,3 +1,38 @@
+// 0422
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if (matrix.empty()) return {};
+        int max_raw = matrix.size();
+        int max_col = matrix[0].size();
+        int length = max_raw * max_col;
+        vector<int> path(length);
+        vector<vector<bool>> visited(max_raw, vector<bool>(max_col, false));
+        int row = 0, col = 0;
+        int direction[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int direction_index = 0;
+        for (int i = 0; i < length; ++i) {
+            path[i] = matrix[row][col];
+            visited[row][col] = true;
+            // next move 
+            row += direction[direction_index][0];
+            col += direction[direction_index][1];
+            if (row < 0 || col < 0 || row >= max_raw || col >= max_col || visited[row][col] == true) {
+                row -= direction[direction_index][0];
+                col -= direction[direction_index][1];
+                // change direction
+                direction_index = (direction_index + 1) % 4;
+                row += direction[direction_index][0];
+                col += direction[direction_index][1];
+            }
+            // cout << path[i];
+        }
+        return path;
+    }
+};
+
+// first submit
+/*
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -41,3 +76,4 @@ public:
         return result;
     }
 };
+*/
