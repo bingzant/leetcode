@@ -2,31 +2,34 @@ class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
         int n = nums.size();
-        quickSort(nums, 0, n - 1);
-        // for (auto x: nums) cout << x << ' ';
+        quickSort(nums, 0, n - 1, n - k);
         return nums[n - k];
     }
 
 private:
-    void quickSort(vector<int>& nums, int low, int high) {
+    void quickSort(vector<int>& nums, int low, int high, int k) {
         if (low < high) {
-            // for (auto x: nums) cout << x << ' ';
-            // cout << endl;
             int index = partition(nums, low, high);
-            // cout << index << endl;
-            quickSort(nums, low, index - 1);
-            quickSort(nums, index + 1, high); 
+            if (k == index) {
+                return;
+            } else if (k < index) {
+                quickSort(nums, low, index - 1, k);
+            } else {
+                quickSort(nums, index + 1, high, k);
+            }
         }
     }
 
     int partition(vector<int>& nums, int low, int high) {
-        int pivot = low;
+        swap(nums[low], nums[(low + high) / 2]);
+        int pivot = nums[low];
+        int begin = low;
         while (low < high) {
-            while (low < high && nums[high] >= nums[pivot]) --high;
-            while (low < high && nums[low] <= nums[pivot]) ++low;
+            while (low < high && nums[high] >= pivot) --high;
+            while (low < high && nums[low] <= pivot) ++low;
             swap(nums[low], nums[high]);
         }
-        swap(nums[low], nums[pivot]);
+        swap(nums[low], nums[begin]);
         return low;
     }
 };
