@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        quickSort(nums, 0, n - 1);
+        // for (auto x: nums) cout << x << ' ';
+        return nums[n - k];
+    }
+
+private:
+    void quickSort(vector<int>& nums, int low, int high) {
+        if (low < high) {
+            // for (auto x: nums) cout << x << ' ';
+            // cout << endl;
+            int index = partition(nums, low, high);
+            // cout << index << endl;
+            quickSort(nums, low, index - 1);
+            quickSort(nums, index + 1, high); 
+        }
+    }
+
+    int partition(vector<int>& nums, int low, int high) {
+        int pivot = low;
+        while (low < high) {
+            while (low < high && nums[high] >= nums[pivot]) --high;
+            while (low < high && nums[low] <= nums[pivot]) ++low;
+            swap(nums[low], nums[high]);
+        }
+        swap(nums[low], nums[pivot]);
+        return low;
+    }
+};
