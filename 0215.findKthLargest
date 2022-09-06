@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int len = nums.size();
+        quickSort(nums, 0, len - 1, len - k);
+        return nums[len - k];
+    }
+
+    void quickSort(vector<int>& nums, int left, int right, int k) {
+        if (left < right) {
+            int mid = partition(nums, left, right);
+            if (mid > k) {
+                quickSort(nums, left, mid - 1, k);
+            } else if (mid < k) {
+                quickSort(nums, mid + 1, right, k);
+            }
+        }
+    }
+
+    int partition(vector<int>& nums, int left, int right) {
+        int ref = nums[left];
+        while (left < right) {
+            while (left < right && nums[right] >= ref) {
+                right--;
+            }
+            nums[left] = nums[right];
+            while (left < right && nums[left] <= ref) {
+                left++;
+            }
+            nums[right] = nums[left];
+        }
+        nums[left] = ref;
+        return left;
+    }
+};
