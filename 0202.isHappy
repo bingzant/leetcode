@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        unordered_set<int> se;
+        while (n != 1 && se.count(n) != 1) {
+            se.insert(n);
+            n = getNext(n);
+        }
+        return n == 1;
+    }
+
+    int getNext (int n) {
+        int sum = 0;
+        while (n) {
+            int a = n % 10;
+            n = (n - a) / 10;
+            sum += a * a;
+        }
+        return sum;
+    }
+};
