@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        quickSort(nums, 0, nums.size() - 1);
+        return nums;
+    }
+
+    void quickSort(vector<int>& nums, int left, int right) {
+        if (left < right) {
+            int mid = random_partition(nums, left, right);
+            quickSort(nums, left, mid - 1);
+            quickSort(nums, mid + 1, right);
+        }
+    }
+
+    int partition(vector<int>& nums, int left, int right) {
+        int index = nums[left];
+        while (left < right) {
+            while (left < right && nums[right] >= index) right--;
+            nums[left] = nums[right];
+            while (left < right && nums[left] <= index) left++;
+            nums[right] = nums[left];
+        }
+        nums[left] = index;
+        return left;
+    }
+
+    int random_partition(vector<int>& nums, int left, int right) {
+        int i = rand() % (right - left + 1) + left;
+        swap(nums[i], nums[left]);
+        return partition(nums, left, right);
+    }
+};
