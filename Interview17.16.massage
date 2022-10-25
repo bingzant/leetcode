@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int massage(vector<int>& nums) {
+        int last_accept = 0, last_reject = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int accept = last_reject + nums[i];
+            int reject = max(last_reject, last_accept);
+            last_accept = accept;
+            last_reject = reject;
+        }
+        return max(last_accept, last_reject);
+    }
+};
